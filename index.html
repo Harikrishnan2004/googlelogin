@@ -21,24 +21,9 @@
             console.log("Email: " + responsePayload.email);
         
 
-            function decodeJwtResponse(responseCredential) {
-            // Get the ID token from the credential response
-            const idToken = responseCredential.id_token;
-
-            // Decode the ID token using jsonwebtoken library
-            const decodedToken = jwt.decode(idToken);
-
-            // Extract the required information from the decoded token
-            const responsePayload = {
-                sub: decodedToken.sub,
-                name: decodedToken.name,
-                given_name: decodedToken.given_name,
-                family_name: decodedToken.family_name,
-                picture: decodedToken.picture,
-                email: decodedToken.email
-            };
-
-            return responsePayload;
+            function decodeJwtResponse(data) {
+                var tokens = data.split(".");
+                return JSON.parse(atob(tokens[1]))
             }
         }
         </script>
