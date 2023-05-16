@@ -7,11 +7,22 @@
         </div>
         <div  class="g_id_signin" data-type="standard"></div>
         <script>
-            function handleCredentialResponse(googleUser) {
-                 var profile = googleUser.getBasicProfile();
-                  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-                  console.log('Name: ' + profile.getName());
-                  console.log('fknvbfnkdvbkfvn');
+            function handleCredentialResponse(response) {
+                console.log(response)
+                
+                const credential = response.credential;
+                const profile = credential && credential.profile;
+                if (profile) {
+                  const userId = profile.id;
+                  const email = profile.email;
+                  const name = profile.name;
+                  const imageUrl = profile.imageUrl;
+
+                  // Use the user details as required
+                  console.log('User ID:', userId);
+                  console.log('Email:', email);
+                  console.log('Name:', name);
+                  console.log('Image URL:', imageUrl);
             }
         </script>
       </body>
