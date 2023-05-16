@@ -8,23 +8,39 @@
         <div  class="g_id_signin" data-type="standard"></div>
         <script>
             function handleCredentialResponse(response) {
-                console.log(response)
-                
-                const credential = response.credential;
-                const profile = credential && credential.profile;
-                if (profile) {
-                  const userId = profile.id;
-                  const email = profile.email;
-                  const name = profile.name;
-                  const imageUrl = profile.imageUrl;
+            // decodeJwtResponse() is a custom function defined by you
+            // to decode the credential response.
+            const jwt = require('jsonwebtoken');
+            const responsePayload = decodeJwtResponse(response.credential);
 
-                  // Use the user details as required
-                  console.log('User ID:', userId);
-                  console.log('Email:', email);
-                  console.log('Name:', name);
-                  console.log('Image URL:', imageUrl);
-                }
+            console.log("ID: " + responsePayload.sub);
+            console.log('Full Name: ' + responsePayload.name);
+            console.log('Given Name: ' + responsePayload.given_name);
+            console.log('Family Name: ' + responsePayload.family_name);
+            console.log("Image URL: " + responsePayload.picture);
+            console.log("Email: " + responsePayload.email);
+        
+
+            function decodeJwtResponse(responseCredential) {
+            // Get the ID token from the credential response
+            const idToken = responseCredential.id_token;
+
+            // Decode the ID token using jsonwebtoken library
+            const decodedToken = jwt.decode(idToken);
+
+            // Extract the required information from the decoded token
+            const responsePayload = {
+                sub: decodedToken.sub,
+                name: decodedToken.name,
+                given_name: decodedToken.given_name,
+                family_name: decodedToken.family_name,
+                picture: decodedToken.picture,
+                email: decodedToken.email
+            };
+
+            return responsePayload;
             }
+        }
         </script>
       </body>
 </html>
