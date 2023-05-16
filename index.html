@@ -7,8 +7,10 @@
         </div>
         <div  class="g_id_signin" data-type="standard"></div>
         <script>
-            function handleCredentialResponse(response) {
-                console.log(response)
+            function handleCredentialResponse(googleUser) {
+                 var profile = googleUser.getBasicProfile();
+                  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                  console.log('Name: ' + profile.getName());
             }
         </script>
       </body>
