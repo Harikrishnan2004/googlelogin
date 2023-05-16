@@ -8,9 +8,6 @@
         <div  class="g_id_signin" data-type="standard"></div>
         <script>
             function handleCredentialResponse(response) {
-            // decodeJwtResponse() is a custom function defined by you
-            // to decode the credential response.
-            const jwt = require('jsonwebtoken');
             const responsePayload = decodeJwtResponse(response.credential);
 
             console.log("ID: " + responsePayload.sub);
